@@ -1,0 +1,49 @@
+# === Python Bytecode ===
+__pycache__/
+*.py[cod]
+*.pyo
+*.so
+
+# === Jupyter Notebook Checkpoints ===
+.ipynb_checkpoints/
+
+# === Environments ===
+.venv/
+env/
+venv/
+ENV/
+*.env
+
+# === OS Files ===
+.DS_Store
+Thumbs.db
+
+# === VSCode / PyCharm ===
+.vscode/
+.idea/
+
+# === Logs ===
+*.log
+
+# === Model or Data Files ===
+*.h5
+*.hdf5
+*.pt
+*.ckpt
+*.onnx
+*.tflite
+*.pb
+*.weights
+
+# === Temporary Files ===
+*.bak
+*.tmp
+*.swp
+*.~*
+
+# === Output and build ===
+dist/
+build/
+*.egg-info/
+*.manifest
+*.spec

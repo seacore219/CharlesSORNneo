@@ -32,7 +32,7 @@ print("[INFO] all libraries imported successfully.")
 ##############################################################
 print("[INFO] Searching for directories with simulation results...")
 ## Need to find all the directories where there are valid sims
-base_dir = 'C:\\Users\\seaco\\OneDrive\\Documents\\GitHub\\SORN\\mu=0.01_eta_ip=0.015_sigma=0.05_500K+3.5M_plastic_raster\\test_single'
+base_dir = 'C:\\Users\\seaco\\OneDrive\\Documents\\GitHub\\SORN\\mu=0.06_sigma=0.05_500K+3.5M_plastic_raster\\test_single'
 #pattern = r"SPmu=(\d+\.\d+)_sigma=(\d+\.\d+base_).*_raster"
 #pattern = r"SPmu=(\d+\.\d+)_sigma=(\d+\.\d+)_(\d+)K.*_sigma_(\d+\.\d+)_.*raster"
 #->pattern = r"SPmu=(0.08)_sigma=(0.05)_(\d+)K.*_sigma_(0.05)_.*raster"
@@ -1626,24 +1626,24 @@ if True :
         else:
             print("No valid rasters processed.")
 
-    AV_Result = cr.AV_analysis(burst=all_burst,
-                         T=all_T,
-                         flag=1,          # Enable p-value testing
-                         plot=True,       # Generate plots
-                         pltname='avalanche_analysis_',  # Prefix for saved plots
-                         saveloc=base_dir  # Save in same directory as other plots
-                         )
-    # Print key results
-    print("\nAnalysis Results:")
-    print(f"Alpha (size exponent): {AV_Result['alpha']:.3f}")
-    print(f"Beta (duration exponent): {AV_Result['beta']:.3f}")
-    print(f"Size range: {AV_Result['xmin']:.0f} to {AV_Result['xmax']:.0f}")
-    print(f"Duration range: {AV_Result['tmin']:.0f} to {AV_Result['tmax']:.0f}")
-    if AV_Result['P_burst'] is not None:
-        print(f"Size distribution p-value: {AV_Result['P_burst']:.3f}")
-    if AV_Result['P_t'] is not None:
-        print(f"Duration distribution p-value: {AV_Result['P_t']:.3f}")
-    print(f"Scaling relation difference: {AV_Result['df']:.3f}")
+    # AV_Result = cr.AV_analysis(burst=all_burst,
+    #                      T=all_T,
+    #                      flag=1,          # Enable p-value testing
+    #                      plot=True,       # Generate plots
+    #                      pltname='avalanche_analysis_',  # Prefix for saved plots
+    #                      saveloc=base_dir  # Save in same directory as other plots
+    #                      )
+    # # Print key results
+    # print("\nAnalysis Results:")
+    # print(f"Alpha (size exponent): {AV_Result['alpha']:.3f}")
+    # print(f"Beta (duration exponent): {AV_Result['beta']:.3f}")
+    # print(f"Size range: {AV_Result['xmin']:.0f} to {AV_Result['xmax']:.0f}")
+    # print(f"Duration range: {AV_Result['tmin']:.0f} to {AV_Result['tmax']:.0f}")
+    # if AV_Result['P_burst'] is not None:
+    #     print(f"Size distribution p-value: {AV_Result['P_burst']:.3f}")
+    # if AV_Result['P_t'] is not None:
+    #     print(f"Duration distribution p-value: {AV_Result['P_t']:.3f}")
+    # print(f"Scaling relation difference: {AV_Result['df']:.3f}")
 
 import matplotlib.pyplot as plt
 import pandas as pd

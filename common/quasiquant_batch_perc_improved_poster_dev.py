@@ -32,7 +32,8 @@ print("[INFO] all libraries imported successfully.")
 ##############################################################
 print("[INFO] Searching for directories with simulation results...")
 ## Need to find all the directories where there are valid sims
-base_dir = 'C:\\Users\\seaco\\OneDrive\\Documents\\GitHub\\SORN\\mu=0.06_sigma=0.05_500K+3.5M_plastic_raster\\test_single'
+base_dir = 'C:\\Users\\seaco\\OneDrive\\Documents\\GitHub\\SORN\\mu=0.4_sigma=0.05_500K+3.5M_plastic_raster\\test_single'
+# base_dir = 'C:\\Users\\seaco\\OneDrive\\Documents\\Charles\\CharlesSORNneo\\backup\\test_single\\randn_10%_e_hip0.06_uext0.06'
 #pattern = r"SPmu=(\d+\.\d+)_sigma=(\d+\.\d+base_).*_raster"
 #pattern = r"SPmu=(\d+\.\d+)_sigma=(\d+\.\d+)_(\d+)K.*_sigma_(\d+\.\d+)_.*raster"
 #->pattern = r"SPmu=(0.08)_sigma=(0.05)_(\d+)K.*_sigma_(0.05)_.*raster"
@@ -163,13 +164,12 @@ def branchparam(TIMERASTER, lverbose=0):
     sumd = np.sum(descendants)
     prob = descendants / sumd if sumd != 0 else np.zeros(r)  
     if lverbose:
-        print(f'descendants: {descendants}')
-        print(f'prob: {prob}')    
+        print("Array assignment completed")   
     # Calculate the expected value
     # sig = np.sum((np.arange(r + 1) - 1) * prob)
     sig = 0.0
     if lverbose:
-        print(f'sig: {sig}')
+        print(f"CRITICAL: Final loop range(0,{r+1}) vs prob array size {len(prob)}")
     # for i in range(r + 1):
     # CHARLES -> for i in range(r):
     for i in range(r+1):
@@ -1388,8 +1388,8 @@ if True :
     # print("Debug susceptibility: " , susceptibility(combined_raster))
     # print("Debug rho: " , rho(combined_raster))
 
-    starting_time_point = 1000000
-    end_time_point = 3500000  # Set to None to use the full length of the raster
+    starting_time_point = 3000000
+    end_time_point = 6000000  # Set to None to use the full length of the raster
 
     ## Need to loop over all the folders associated to the current param
     # single_param_backup_path = directory + '\\test_single'
@@ -1626,24 +1626,24 @@ if True :
         else:
             print("No valid rasters processed.")
 
-    # AV_Result = cr.AV_analysis(burst=all_burst,
-    #                      T=all_T,
-    #                      flag=1,          # Enable p-value testing
-    #                      plot=True,       # Generate plots
-    #                      pltname='avalanche_analysis_',  # Prefix for saved plots
-    #                      saveloc=base_dir  # Save in same directory as other plots
-    #                      )
-    # # Print key results
-    # print("\nAnalysis Results:")
-    # print(f"Alpha (size exponent): {AV_Result['alpha']:.3f}")
-    # print(f"Beta (duration exponent): {AV_Result['beta']:.3f}")
-    # print(f"Size range: {AV_Result['xmin']:.0f} to {AV_Result['xmax']:.0f}")
-    # print(f"Duration range: {AV_Result['tmin']:.0f} to {AV_Result['tmax']:.0f}")
-    # if AV_Result['P_burst'] is not None:
-    #     print(f"Size distribution p-value: {AV_Result['P_burst']:.3f}")
-    # if AV_Result['P_t'] is not None:
-    #     print(f"Duration distribution p-value: {AV_Result['P_t']:.3f}")
-    # print(f"Scaling relation difference: {AV_Result['df']:.3f}")
+    AV_Result = cr.AV_analysis(burst=all_burst,
+                         T=all_T,
+                         flag=1,          # Enable p-value testing
+                         plot=True,       # Generate plots
+                         pltname='avalanche_analysis_',  # Prefix for saved plots
+                         saveloc=base_dir  # Save in same directory as other plots
+                         )
+    # Print key results
+    print("\nAnalysis Results:")
+    print(f"Alpha (size exponent): {AV_Result['alpha']:.3f}")
+    print(f"Beta (duration exponent): {AV_Result['beta']:.3f}")
+    print(f"Size range: {AV_Result['xmin']:.0f} to {AV_Result['xmax']:.0f}")
+    print(f"Duration range: {AV_Result['tmin']:.0f} to {AV_Result['tmax']:.0f}")
+    if AV_Result['P_burst'] is not None:
+        print(f"Size distribution p-value: {AV_Result['P_burst']:.3f}")
+    if AV_Result['P_t'] is not None:
+        print(f"Duration distribution p-value: {AV_Result['P_t']:.3f}")
+    print(f"Scaling relation difference: {AV_Result['df']:.3f}")
 
 import matplotlib.pyplot as plt
 import pandas as pd

@@ -4,12 +4,28 @@ import subprocess
 import shutil
 import time
 
+def find_python27_simple():
+    """Simpler approach - just try commands in PATH first"""
+    for cmd in ["python2.7", "python2", "python"]:
+        try:
+            result = subprocess.check_output([cmd, "--version"], 
+                                           stderr=subprocess.STDOUT, 
+                                           universal_newlines=True)
+            if "Python 2.7" in result:
+                return cmd
+        except:
+            continue
+    
+    # If not in PATH, try common Windows location
+    if os.name == 'nt':
+        win_path = "C:\\Python27\\python.exe"
+        if os.path.exists(win_path):
+            return win_path
+    
+    raise Exception("Cannot find Python 2.7")
+
 def verify_python():
-    """Verify Python 2.7 executable exists"""
-    python_exe = "C:\\Python27\\python.exe"
-    if not os.path.exists(python_exe):
-        raise Exception("Cannot find Python 2.7 at %s" % python_exe)
-    return python_exe
+    return find_python27_simple()
 
 def verify_paths(common_dir, root_dir):
     """Verify all required files and paths exist"""

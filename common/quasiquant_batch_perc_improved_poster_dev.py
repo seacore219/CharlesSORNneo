@@ -2,7 +2,7 @@ print("[INFO] Starting import of libraries and function definitions...")
 import os
 import re
 import tables
-print("[INFO] numpy imported successfully.")
+print("[INFO] tables imported successfully.")
 import numpy as np
 import math
 import mrestimator as mre
@@ -22,6 +22,7 @@ import time
 import criticality as cr
 import psutil
 import gc
+
 process = psutil.Process(os.getpid())
 print(f"Memory usage: {process.memory_info().rss / 1024 / 1024 / 1024:.2f} GB")
 gc.collect()
@@ -32,8 +33,9 @@ print("[INFO] all libraries imported successfully.")
 ##############################################################
 print("[INFO] Searching for directories with simulation results...")
 ## Need to find all the directories where there are valid sims
-base_dir = 'C:\\Users\\seaco\\OneDrive\\Documents\\GitHub\\SORN\\mu=0.3_sigma=0.05_500K+3.5M_plastic_raster\\test_single'
-# base_dir = 'C:\\Users\\seaco\\OneDrive\\Documents\\Charles\\CharlesSORNneo\\backup\\test_single\\randn_10%_e_hip0.06_uext0.06'
+# base_dir = 'C:\\Users\\seaco\\OneDrive\\Documents\\GitHub\\SORN\\mu=0.3_sigma=0.05_500K+3.5M_plastic_raster\\test_single'
+base_dir = 'C:\\Users\\seaco\\OneDrive\\Documents\\Charles\\CharlesSORNneo\\backup\\test_single\\randn_10%_e_hip0.1_uext0.1'
+# base_dir = 'C:\\Users\\seaco\\Downloads\\sims\\randn_10%_e_hip0.2_uext0.2'
 #pattern = r"SPmu=(\d+\.\d+)_sigma=(\d+\.\d+base_).*_raster"
 #pattern = r"SPmu=(\d+\.\d+)_sigma=(\d+\.\d+)_(\d+)K.*_sigma_(\d+\.\d+)_.*raster"
 #->pattern = r"SPmu=(0.08)_sigma=(0.05)_(\d+)K.*_sigma_(0.05)_.*raster"

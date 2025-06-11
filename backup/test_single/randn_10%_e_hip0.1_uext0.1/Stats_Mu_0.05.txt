@@ -1,0 +1,12 @@
+Metrics Summary for Mu = 0.05
+============================================================
+Mean Susceptibility: 0.0019
+Mean Rho: 0.1000
+Mean CV: 0.4339
+Mean Branching Ratio (Method 1 - branchparam): 1.2495
+Mean Branching Ratio (Method 2 - get_avalanches): 1.1353
+Mean Branching Ratio (Method 3 - Priesman): 0.9263
+Mean Pearson Kappa: 7.1933
+Av_Collapse_exponent: nan
+Av_Collapse_error: nan
+------------------------------------------------------------

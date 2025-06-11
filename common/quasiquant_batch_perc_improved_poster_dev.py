@@ -32,7 +32,7 @@ print("[INFO] all libraries imported successfully.")
 ##############################################################
 print("[INFO] Searching for directories with simulation results...")
 ## Need to find all the directories where there are valid sims
-base_dir = 'C:\\Users\\seaco\\OneDrive\\Documents\\GitHub\\SORN\\mu=0.4_sigma=0.05_500K+3.5M_plastic_raster\\test_single'
+base_dir = 'C:\\Users\\seaco\\OneDrive\\Documents\\GitHub\\SORN\\mu=0.3_sigma=0.05_500K+3.5M_plastic_raster\\test_single'
 # base_dir = 'C:\\Users\\seaco\\OneDrive\\Documents\\Charles\\CharlesSORNneo\\backup\\test_single\\randn_10%_e_hip0.06_uext0.06'
 #pattern = r"SPmu=(\d+\.\d+)_sigma=(\d+\.\d+base_).*_raster"
 #pattern = r"SPmu=(\d+\.\d+)_sigma=(\d+\.\d+)_(\d+)K.*_sigma_(\d+\.\d+)_.*raster"
@@ -113,7 +113,7 @@ def branchparam(TIMERASTER, lverbose=0):
     descendants = np.zeros(r + 1)
     if lverbose:
         print(f'descendants {descendants}')
-    prob = np.zeros(r)
+    prob = np.zeros(r + 1)
     if lverbose:
         print(f'prob {prob}')    # Convert non-zero elements to 1
     TIMERASTER[TIMERASTER != 0] = 1
@@ -126,10 +126,12 @@ def branchparam(TIMERASTER, lverbose=0):
     if lverbose:
         print(f'sums: {sums.shape}')    
     actives = np.nonzero(sums)[0]
+    print(f"Active frames: {len(actives)} out of {len(sums)} total")
+    print(f"Activity range: min={np.min(sums[sums>0]) if len(actives)>0 else 0}, max={np.max(sums) if len(actives)>0 else 0}")
     if lverbose:
         print(f'actives {actives}')
-    if lverbose:
-        print(f'len actives {len(actives)}') 
+        print(f'len actives {len(actives)}')
+    max_num = 0 
     for i in range(1, len(actives) - 1):
         ancestors = 0
         if lverbose:
@@ -153,8 +155,9 @@ def branchparam(TIMERASTER, lverbose=0):
                 # descendants[num] += ancestors
             if lverbose:
                 print(f'i {i} descendants {descendants[num ]}')
-        # print(f’i {i} ancestors {ancestors} num {num} descendants(num+1)
-        # {descendants[num+1]}‘) 
+            # print(f’i {i} ancestors {ancestors} num {num} descendants(num+1)
+            max_num = max(max_num, num)
+
     if lverbose:
         print(f'sum ancestors: {np.sum(ancestors)}')
         print(f'sum descendants: {np.sum(descendants)}')
@@ -162,12 +165,22 @@ def branchparam(TIMERASTER, lverbose=0):
         print(f'num: {num}')    
     # Calculate the probability of each number of descendants
     sumd = np.sum(descendants)
-    prob = descendants / sumd if sumd != 0 else np.zeros(r)  
+
+    print(f"CRITICAL ASSIGNMENT:")
+    print(f"  descendants array: size={len(descendants)} (shape: {descendants.shape})")
+    print(f"  prob array: size={len(prob)} (shape: {prob.shape})")
+    print(f"  Assignment: trying to assign {len(descendants)} elements to {len(prob)} elements")
+    prob = descendants / sumd if sumd != 0 else np.zeros(r + 1)  
     if lverbose:
         print("Array assignment completed")   
     # Calculate the expected value
     # sig = np.sum((np.arange(r + 1) - 1) * prob)
     sig = 0.0
+
+    print(f"CRITICAL LOOP:")
+    print(f"  Loop range: i from 0 to {r} (inclusive) = {r+1} iterations")
+    print(f"  prob array: size={len(prob)}, max_valid_index={len(prob)-1}")
+    print(f"  Problem: loop will try prob[{r}] but max valid is prob[{len(prob)-1}]")
     if lverbose:
         print(f"CRITICAL: Final loop range(0,{r+1}) vs prob array size {len(prob)}")
     # for i in range(r + 1):

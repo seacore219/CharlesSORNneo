@@ -115,4 +115,4 @@ def run_multiple_simulations(num_sims=25):
         print "\nSimulation batch completed"
 
 if __name__ == "__main__":
-    run_multiple_simulations(num_sims=25)
+    run_multiple_simulations(num_sims=10)
